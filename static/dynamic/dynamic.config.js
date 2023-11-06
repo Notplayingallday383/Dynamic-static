@@ -5,7 +5,7 @@ self.__dynamic$config = {
   logLevel: 3,
   bare: {
     version: 3,
-    path: "https://flow-works.me/bare/"
+    path: "https://nebulaproxy.io/bare/"
   },
   tab: {
     title: 'Service',
