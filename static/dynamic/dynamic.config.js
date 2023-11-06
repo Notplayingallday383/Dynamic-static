@@ -4,7 +4,7 @@ self.__dynamic$config = {
   mode: 'production',
   logLevel: 3,
   bare: {
-    version: 3,
+    version: 2,
     path: "https://nebulaproxy.io/bare/"
   },
   tab: {
