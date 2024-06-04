@@ -2,6 +2,7 @@ import { BareResponse } from '@mercuryworkshop/bare-mux';
 import { DynamicBundle } from '../global/bundle';
 import Cookie from '../global/cookie';
 import about from '../global/util/about';
+import basicErr from '../global/util/errHandler';
 
 (function(self: ServiceWorker | any) {
   self.skipWaiting();
@@ -348,7 +349,8 @@ import about from '../global/util/about';
         return new Response(ResponseBody, {status: BareRequest.status, statusText: BareRequest.statusText, headers: ResHeaders});
       } catch(e: Error | any) {
         if (self.__dynamic$config.logLevel >= 1) console.error(e);
-        return new Response(e, {status: 500, statusText: 'error', headers: new Headers({})});
+        basicErr(null, 500)
+        //return new Response(e, {status: 500, statusText: 'error', headers: new Headers({})});
       }
     };
   }

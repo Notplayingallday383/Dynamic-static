@@ -1,4 +1,5 @@
 import DynamicUtil from "../util";
+import basicErr from "./errHandler";
 
 async function route(this: DynamicUtil, request: Request) {
   var url;
@@ -16,9 +17,11 @@ async function route(this: DynamicUtil, request: Request) {
       url = parsed.searchParams.get('url');
     }
 
-    if (!url) return new Response('Error: Invalid or Unfound url', {status: 400});
+    //if (!url) return new Response('Error: Invalid or Unfound url', {status: 400});
+    if (!url) return basicErr('url', 400);
   } else {
-    return new Response('Error: Invalid method', {status: 405});
+    //return new Response('Error: Invalid method', {status: 405});
+    return basicErr('method', 405);
   }
 
   return new Response('', {status: 301, headers: {location: location.origin+this.ctx.config.prefix+this.ctx.encoding.encode(url)}});

@@ -1,4 +1,5 @@
-import { BareClient } from '@mercuryworkshop/bare-mux';import DynamicModules from './modules';
+import { BareClient } from '@mercuryworkshop/bare-mux';
+import DynamicModules from './modules';
 import DynamicRewrites from './rewrite';
 import DynamicUtil from './util';
 import DynamicUrlRewriter from './url';
