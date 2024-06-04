@@ -1,4 +1,4 @@
-import { BareResponse } from '@tomphttp/bare-client';
+import { BareResponse } from '@mercuryworkshop/bare-mux';
 import { DynamicBundle } from '../global/bundle';
 import Cookie from '../global/cookie';
 import about from '../global/util/about';
