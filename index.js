@@ -9,14 +9,15 @@ import { existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
+import wisp from "wisp-server-node";
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport"
+import { baremuxPath } from "@mercuryworkshop/bare-mux"
 const require = createRequire(import.meta.url);
 const gitCommitInfo = require('git-commit-info');
-
 
 if (!existsSync("./dist")) await import("./esbuild.prod.js");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const port = process.env.PORT || 3000;
 const _v = process.env.npm_package_version;
 const info = { 
@@ -40,6 +41,8 @@ const serverFactory = (handler, opts) => {
     }).on("upgrade", (req, socket, head) => {
       if (bare.shouldRoute(req)) {
         bare.routeUpgrade(req, socket, head);
+      } else if (req.url.endsWith("/wisp/")) {
+        wisp.routeRequest(req, socket, head); 
       } else {
         socket.end();
       }
@@ -48,6 +51,14 @@ const serverFactory = (handler, opts) => {
 const fastify = Fastify({ serverFactory });
 fastify.register(fastifyStatic, {
   root: join(__dirname, "./static"),
+  decorateReply: false
+});
+fastify.register(fastifyStatic, {
+  root: epoxyPath,
+  decorateReply: false
+});
+fastify.register(fastifyStatic, {
+  root: baremuxPath,
   decorateReply: false
 });
 fastify.register(fastifyStatic, {
